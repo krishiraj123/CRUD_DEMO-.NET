@@ -1,0 +1,81 @@
+[
+  {
+    "ContainingType": "myapi.Controllers.StudentController",
+    "Method": "DeleteStudent",
+    "RelativePath": "apiv1/Student/DeleteStudent/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "myapi.Controllers.StudentController",
+    "Method": "GetStudentByID",
+    "RelativePath": "apiv1/Student/GetStudentByID/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "myapi.Controllers.StudentController",
+    "Method": "GetStudents",
+    "RelativePath": "apiv1/Student/GetStudents",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "myapi.Controllers.StudentController",
+    "Method": "InsertStudent",
+    "RelativePath": "apiv1/Student/InsertStudent",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "studentModel",
+        "Type": "myapi.Models.StudentModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "myapi.Controllers.StudentController",
+    "Method": "UpdateStudent",
+    "RelativePath": "apiv1/Student/UpdateStudent/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "studentModel",
+        "Type": "myapi.Models.StudentModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]
