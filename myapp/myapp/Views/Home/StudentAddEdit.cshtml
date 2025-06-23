@@ -1,0 +1,45 @@
+﻿@model myapp.Models.StudentModel
+
+@{
+    var isEdit = Model.StudentID > 0;
+    var title = isEdit ? "Edit Student" : "Add New Student";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4">@title</h2>
+
+    <form asp-action="StudentSave" asp-controller="Home" method="post">
+        <input type="hidden" asp-for="StudentID" />
+
+        <div class="mb-3">
+            <label asp-for="StudentName" class="form-label">Student Name</label>
+            <input asp-for="StudentName" class="form-control" />
+            <span asp-validation-for="StudentName" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="EnrollmentNumber" class="form-label">Enrollment Number</label>
+            <input asp-for="EnrollmentNumber" class="form-control" />
+            <span asp-validation-for="EnrollmentNumber" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Semester" class="form-label">Semester</label>
+            <input asp-for="Semester" type="number" class="form-control" />
+            <span asp-validation-for="Semester" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="CGPA" class="form-label">CGPA</label>
+            <input asp-for="CGPA" type="text" class="form-control" />
+            <span asp-validation-for="CGPA" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-success" asp-action="StudentSave" asp-controller="Home">@((isEdit ? "Update" : "Add") + " Student")</button>
+        <a asp-action="StudentList" class="btn btn-secondary ms-2">Back</a>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

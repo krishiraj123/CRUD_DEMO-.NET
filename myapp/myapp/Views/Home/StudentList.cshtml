@@ -1,0 +1,48 @@
+﻿@model IEnumerable<myapp.Models.StudentModel>
+
+<div class="container mt-4">
+    <h2>Student List</h2>
+
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert alert-success">@TempData["Message"]</div>
+    }
+    else if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+    }
+
+    <a asp-action="StudentAddEdit" class="btn btn-success mb-3">Add New Student</a>
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Student ID</th>
+                <th>Name</th>
+                <th>Enrollment No</th>
+                <th>Semester</th>
+                <th>CGPA</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var student in Model)
+            {
+                <tr>
+                    <td>@student.StudentID</td>
+                    <td>@student.StudentName</td>
+                    <td>@student.EnrollmentNumber</td>
+                    <td>@student.Semester</td>
+                    <td>@student.CGPA</td>
+                    <td>
+                        <a asp-action="StudentAddEdit" asp-route-id="@student.StudentID" class="btn btn-primary btn-sm">Edit</a>
+
+                        <form asp-action="StudentDelete" asp-route-id="@student.StudentID" method="post" class="d-inline" onsubmit="return confirm('Are you sure to delete?');">
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

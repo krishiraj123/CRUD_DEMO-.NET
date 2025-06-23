@@ -78,3 +78,4 @@ C:\Users\krish\OneDrive\Desktop\Crud\myapi\myapi\obj\Debug\net8.0\refint\myapi.d
 C:\Users\krish\OneDrive\Desktop\Crud\myapi\myapi\obj\Debug\net8.0\myapi.pdb
 C:\Users\krish\OneDrive\Desktop\Crud\myapi\myapi\obj\Debug\net8.0\myapi.genruntimeconfig.cache
 C:\Users\krish\OneDrive\Desktop\Crud\myapi\myapi\obj\Debug\net8.0\ref\myapi.dll
+C:\Users\krish\OneDrive\Desktop\Crud\myapi\myapi\obj\Debug\net8.0\myapi.sourcelink.json
