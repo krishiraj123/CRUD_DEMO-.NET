@@ -77,5 +77,21 @@
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "myapi.Controllers.StudentController",
+    "Method": "UserLogin",
+    "RelativePath": "apiv1/Student/UserLogin",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "lm",
+        "Type": "myapi.Models.UserLoginModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
   }
 ]

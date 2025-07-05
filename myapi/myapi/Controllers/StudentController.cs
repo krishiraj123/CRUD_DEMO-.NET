@@ -1,20 +1,25 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using myapi.Models;
 using myapi.Repository;
+using myapi.Services;
 
 namespace myapi.Controllers
 {
     [Route("apiv1/[controller]/[action]")]
     [ApiController]
+    [Authorize]
     public class StudentController : ControllerBase
     {
         private readonly StudentRepository studentRepository;
+        private readonly JwtServices jwtServices;
 
-        public StudentController(StudentRepository studentRepository)
+        public StudentController(StudentRepository studentRepository,JwtServices jwtServices)
         {
             this.studentRepository = studentRepository;
+            this.jwtServices = jwtServices;
         }
 
         [HttpGet]
@@ -24,7 +29,7 @@ namespace myapi.Controllers
             {
                 var slist = studentRepository.GetStudentData();
 
-                if (slist.IsNullOrEmpty())
+                if (slist == null || !slist.Any())
                 {
                     return NotFound(new { status = "Failure", message = "No students found." });
                 }
@@ -129,6 +134,34 @@ namespace myapi.Controllers
             catch (Exception ex)
             {
                 return StatusCode(500, new { status = "Failure", message = "An error occurred while deleting the student.", error = ex.Message });
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public IActionResult UserLogin(UserLoginModel lm)
+        {
+            try
+            {
+                if (lm == null)
+                {
+                    return Unauthorized(new { status = "Failure", message = "Invalid student data." });
+                }
+                bool isInserted = studentRepository.UserLogin(lm);
+                if (isInserted)
+                {
+                    var token = jwtServices.GenerateToken(lm);
+
+                    return Ok(new { status = "Success", message = "Student Login successfully.",authtoken = token });
+                }
+                else
+                {
+                    return StatusCode(500, new { status = "Failure", message = "Username or Password is incorrect" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { status = "Failure", message = "An error occurred while inserting the student.", error = ex.Message });
             }
         }
     }

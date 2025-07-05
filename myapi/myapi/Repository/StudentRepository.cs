@@ -14,18 +14,18 @@ namespace myapi.Repository
             this._config = config;
         }
 
-        public SqlCommand Connection()
+        public SqlCommand Connection(CommandType command)
         {
             SqlConnection cons = new SqlConnection(this._config.GetConnectionString("ConnectionString"));
             cons.Open();
             SqlCommand cmd = cons.CreateCommand();
-            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandType = command;
             return cmd;
         }
 
         public IEnumerable<StudentModel> GetStudentData()
         {
-            SqlCommand cmd = Connection();
+            SqlCommand cmd = Connection(CommandType.StoredProcedure);
             cmd.CommandText = "PR_Student_SelectAll";
             List<StudentModel> slist = new List<StudentModel>();
             SqlDataReader reader = cmd.ExecuteReader();
@@ -46,7 +46,7 @@ namespace myapi.Repository
 
         public StudentModel GetStudentByID(int id)
         {
-            SqlCommand cmd = Connection();
+            SqlCommand cmd = Connection(CommandType.StoredProcedure);
             cmd.CommandText = "PR_Student_SelectByPK";
             cmd.Parameters.AddWithValue("@StudentID", id);
 
@@ -67,7 +67,7 @@ namespace myapi.Repository
 
         public Boolean InsertStudent(StudentModel sm)
         {
-            SqlCommand cmd = Connection();
+            SqlCommand cmd = Connection(CommandType.StoredProcedure);
             cmd.CommandText = "PR_Student_Insert";
             cmd.Parameters.AddWithValue("@StudentName", sm.StudentName);
             cmd.Parameters.AddWithValue("@EnrollmentNumber", sm.EnrollmentNumber);
@@ -79,7 +79,7 @@ namespace myapi.Repository
 
         public Boolean UpdateStudent(int id, StudentModel sm)
         {
-            SqlCommand cmd = Connection();
+            SqlCommand cmd = Connection(CommandType.StoredProcedure);
             cmd.CommandText = "PR_Student_UpdateByPK";
             cmd.Parameters.AddWithValue("@StudentID", id);
             cmd.Parameters.AddWithValue("@StudentName", sm.StudentName);
@@ -92,10 +92,21 @@ namespace myapi.Repository
 
         public Boolean DeleteStudent(int id)
         {
-            SqlCommand cmd = Connection();
+            SqlCommand cmd = Connection(CommandType.StoredProcedure);
             cmd.CommandText = "PR_Student_DeleteByPK";
             cmd.Parameters.AddWithValue("@StudentID", id);            
             int result = cmd.ExecuteNonQuery();
+            return result > 0;
+        }
+
+        public Boolean UserLogin(UserLoginModel lm)
+        {
+            SqlCommand cmd = Connection(CommandType.Text);
+            cmd.CommandText = "Select Count(*) from Login where Username = @UserName and Password = @Password";
+            cmd.Parameters.AddWithValue("@Username", lm.UserName);
+            cmd.Parameters.AddWithValue("@Password", lm.Password); 
+            int result = Convert.ToInt32(cmd.ExecuteScalar());
+
             return result > 0;
         }
     }
