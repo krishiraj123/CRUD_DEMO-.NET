@@ -186,7 +186,7 @@ namespace myapi.Controllers
             }
         }
 
-        [HttpGet("{id}")]
+        [HttpGet]
         public async Task<IActionResult> GetStudentAttendanceByID(string id)
         {
             try
@@ -224,7 +224,7 @@ namespace myapi.Controllers
             }
         }
 
-        [HttpPut("{id}")]
+        [HttpPut]
         public async Task<IActionResult> UpdateAttendance(string id, StudentAttendanceModel model)
         {
             try
@@ -248,7 +248,7 @@ namespace myapi.Controllers
             }
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete]
         public IActionResult DeleteAttendance(string id)
         {
             try

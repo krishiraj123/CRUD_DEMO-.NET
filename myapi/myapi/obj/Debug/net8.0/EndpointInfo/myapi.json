@@ -179,7 +179,7 @@
         }
       }
     },
-    "/apiv1/Student/GetStudentAttendanceByID/{id}": {
+    "/apiv1/Student/GetStudentAttendanceByID": {
       "get": {
         "tags": [
           "Student"
@@ -187,8 +187,7 @@
         "parameters": [
           {
             "name": "id",
-            "in": "path",
-            "required": true,
+            "in": "query",
             "schema": {
               "type": "string"
             }
