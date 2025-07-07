@@ -1,17 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Data.SqlClient;
+using MongoDB.Bson;
+using MongoDB.Driver;
 using myapi.Models;
+using myapi.Services;
 using System.Data;
+using System.Threading.Tasks;
 
 namespace myapi.Repository
 {
     public class StudentRepository
     {
         private readonly IConfiguration _config;
+        private readonly IMongoCollection<StudentAttendanceModel> collection;
 
-        public StudentRepository(IConfiguration config)
+        public StudentRepository(IConfiguration config,MongoServices services)
         {
             this._config = config;
+            this.collection = services.GetCollection<StudentAttendanceModel>("students");
         }
 
         public SqlCommand Connection(CommandType command)
@@ -108,6 +114,35 @@ namespace myapi.Repository
             int result = Convert.ToInt32(cmd.ExecuteScalar());
 
             return result > 0;
+        }
+
+        public async Task<IEnumerable<StudentAttendanceModel>> GetStudentAttendances()
+        {            
+            var slist = await collection.Find(_=> true).ToListAsync();
+            return slist;
+        }
+
+        public async Task<StudentAttendanceModel> GetStudentByID(string id)
+        {
+            return await collection.Find(x => x.StudentId == id).FirstOrDefaultAsync();
+        }
+
+        public async Task<bool> InsertStudent(StudentAttendanceModel sm)
+        {
+            await collection.InsertOneAsync(sm);
+            return true;
+        }
+
+        public async Task<bool> UpdateStudent(string id,StudentAttendanceModel sm)
+        {
+            var result = await collection.ReplaceOneAsync(x => x.StudentId == id, sm);
+            return result.ModifiedCount > 0;
+        }
+
+        public bool DeleteStudent(string id)
+        {
+            var result = collection.DeleteOne(x => x.StudentId == id);
+            return result.DeletedCount > 0;
         }
     }
 }

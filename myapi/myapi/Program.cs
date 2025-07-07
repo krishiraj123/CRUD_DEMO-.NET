@@ -64,6 +64,7 @@ builder.Services.AddAuthentication(option =>
 
 builder.Services.AddScoped<StudentRepository>();
 builder.Services.AddScoped<JwtServices>();
+builder.Services.AddScoped<MongoServices>();
 builder.Services.AddAuthorization();
 
 var app = builder.Build();

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using MongoDB.Bson;
 using myapi.Models;
 using myapi.Repository;
 using myapi.Services;
@@ -162,6 +163,107 @@ namespace myapi.Controllers
             catch (Exception ex)
             {
                 return StatusCode(500, new { status = "Failure", message = "An error occurred while inserting the student.", error = ex.Message });
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetStudentAttendances()
+        {
+            try
+            {
+                var attendances = await studentRepository.GetStudentAttendances();
+
+                if (attendances == null || !attendances.Any())
+                {
+                    return NotFound(new { status = "Failure", message = "No attendance records found." });
+                }
+
+                return Ok(new { status = "Success", message = "Attendance records retrieved successfully.", data = attendances });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { status = "Failure", message = "An error occurred while retrieving attendance records.", error = ex.Message });
+            }
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetStudentAttendanceByID(string id)
+        {
+            try
+            {
+                var record = await studentRepository.GetStudentByID(id);
+                if (record == null)
+                {
+                    return NotFound(new { status = "Failure", message = $"Attendance record with ID {id} not found." });
+                }
+
+                return Ok(new { status = "Success", message = "Attendance record retrieved successfully.", data = record });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { status = "Failure", message = "An error occurred while retrieving the attendance record.", error = ex.Message });
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> InsertAttendance(StudentAttendanceModel model)
+        {
+            try
+            {
+                if (model == null)
+                {
+                    return BadRequest(new { status = "Failure", message = "Invalid attendance data." });
+                }
+
+                await studentRepository.InsertStudent(model);
+                return Ok(new { status = "Success", message = "Attendance record inserted successfully." });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { status = "Failure", message = "An error occurred while inserting attendance.", error = ex.Message });
+            }
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateAttendance(string id, StudentAttendanceModel model)
+        {
+            try
+            {
+                if (model == null)
+                {
+                    return BadRequest(new { status = "Failure", message = "Invalid attendance data." });
+                }
+
+                var result = await studentRepository.UpdateStudent(id, model);
+                if (result)
+                {
+                    return Ok(new { status = "Success", message = "Attendance record updated successfully." });
+                }
+
+                return NotFound(new { status = "Failure", message = $"Attendance record with ID {id} not found." });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { status = "Failure", message = "An error occurred while updating attendance.", error = ex.Message });
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteAttendance(string id)
+        {
+            try
+            {
+                var result = studentRepository.DeleteStudent(id);
+                if (result)
+                {
+                    return Ok(new { status = "Success", message = "Attendance record deleted successfully." });
+                }
+
+                return NotFound(new { status = "Failure", message = $"Attendance record with ID {id} not found." });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { status = "Failure", message = "An error occurred while deleting attendance.", error = ex.Message });
             }
         }
     }

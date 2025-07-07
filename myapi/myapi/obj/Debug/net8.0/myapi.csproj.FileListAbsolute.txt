@@ -80,3 +80,9 @@ C:\Users\krish\OneDrive\Desktop\Crud\myapi\myapi\obj\Debug\net8.0\myapi.genrunti
 C:\Users\krish\OneDrive\Desktop\Crud\myapi\myapi\obj\Debug\net8.0\ref\myapi.dll
 C:\Users\krish\OneDrive\Desktop\Crud\myapi\myapi\obj\Debug\net8.0\myapi.sourcelink.json
 C:\Users\krish\OneDrive\Desktop\Crud\myapi\myapi\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\krish\OneDrive\Desktop\Crud\myapi\myapi\bin\Debug\net8.0\DnsClient.dll
+C:\Users\krish\OneDrive\Desktop\Crud\myapi\myapi\bin\Debug\net8.0\MongoDB.Bson.dll
+C:\Users\krish\OneDrive\Desktop\Crud\myapi\myapi\bin\Debug\net8.0\MongoDB.Driver.dll
+C:\Users\krish\OneDrive\Desktop\Crud\myapi\myapi\bin\Debug\net8.0\SharpCompress.dll
+C:\Users\krish\OneDrive\Desktop\Crud\myapi\myapi\bin\Debug\net8.0\Snappier.dll
+C:\Users\krish\OneDrive\Desktop\Crud\myapi\myapi\bin\Debug\net8.0\ZstdSharp.dll
