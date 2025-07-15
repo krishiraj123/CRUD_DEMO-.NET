@@ -104,16 +104,5 @@ namespace myapi.Repository
             int result = cmd.ExecuteNonQuery();
             return result > 0;
         }
-
-        public Boolean UserLogin(UserLoginModel lm)
-        {
-            SqlCommand cmd = Connection(CommandType.Text);
-            cmd.CommandText = "Select Count(*) from Login where Username = @UserName and Password = @Password";
-            cmd.Parameters.AddWithValue("@Username", lm.UserName);
-            cmd.Parameters.AddWithValue("@Password", lm.Password); 
-            int result = Convert.ToInt32(cmd.ExecuteScalar());
-
-            return result > 0;
-        }
     }
 }
