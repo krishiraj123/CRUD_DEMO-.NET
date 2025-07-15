@@ -115,34 +115,5 @@ namespace myapi.Repository
 
             return result > 0;
         }
-
-        public async Task<IEnumerable<StudentAttendanceModel>> GetStudentAttendances()
-        {            
-            var slist = await collection.Find(_=> true).ToListAsync();
-            return slist;
-        }
-
-        public async Task<StudentAttendanceModel> GetStudentByID(string id)
-        {
-            return await collection.Find(x => x.StudentId == id).FirstOrDefaultAsync();
-        }
-
-        public async Task<bool> InsertStudent(StudentAttendanceModel sm)
-        {
-            await collection.InsertOneAsync(sm);
-            return true;
-        }
-
-        public async Task<bool> UpdateStudent(string id,StudentAttendanceModel sm)
-        {
-            var result = await collection.ReplaceOneAsync(x => x.StudentId == id, sm);
-            return result.ModifiedCount > 0;
-        }
-
-        public bool DeleteStudent(string id)
-        {
-            var result = collection.DeleteOne(x => x.StudentId == id);
-            return result.DeletedCount > 0;
-        }
     }
 }
